@@ -6,22 +6,25 @@ import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import br.com.fuzalabs.enhancedcompass.EnhancedCompass;
+import br.com.fuzalabs.enhancedcompass.lang.LanguageManager;
 import br.com.fuzalabs.enhancedcompass.storage.LocationStorage;
 
 import java.util.Map;
 
 public class CompassCommand implements CommandExecutor {
 
-  private final FileConfiguration config;
   private final LocationStorage storage;
+  private final LanguageManager languageManager;
+  private final EnhancedCompass plugin;
 
-  public CompassCommand(FileConfiguration config, LocationStorage storage) {
-    this.config = config;
+  public CompassCommand(LocationStorage storage, LanguageManager languageManager, EnhancedCompass plugin) {
     this.storage = storage;
+    this.languageManager = languageManager;
+    this.plugin = plugin;
   }
 
   private boolean isHoldingCompass(Player player) {
@@ -30,13 +33,8 @@ public class CompassCommand implements CommandExecutor {
   }
 
   private void sendMessage(CommandSender sender, String key, Map<String, String> replacements) {
-    String msg = config.getString("messages." + key, "Message not configured.");
-    if (replacements != null) {
-      for (Map.Entry<String, String> entry : replacements.entrySet()) {
-        msg = msg.replace("{" + entry.getKey() + "}", entry.getValue());
-      }
-    }
-    sender.sendMessage(msg.replace("&", "§"));
+    String message = languageManager.getMessage(key, replacements);
+    sender.sendMessage(message);
   }
 
   @Override
@@ -77,6 +75,24 @@ public class CompassCommand implements CommandExecutor {
       case "reset" -> {
         player.setCompassTarget(player.getWorld().getSpawnLocation());
         sendMessage(player, "compass_reset", null);
+      }
+
+      case "reload" -> {
+        if (!player.hasPermission("enhancedcompass.admin")) {
+          sendMessage(player, "no_permission", null);
+          return true;
+        }
+        plugin.reloadPlugin();
+        sendMessage(player, "config_reloaded", null);
+      }
+
+      case "debug" -> {
+        if (!player.hasPermission("enhancedcompass.admin")) {
+          sendMessage(player, "no_permission", null);
+          return true;
+        }
+        languageManager.debugLanguageInfo();
+        player.sendMessage("§aDebug information logged to console. Current language: §e" + languageManager.getCurrentLanguage());
       }
 
       default -> {

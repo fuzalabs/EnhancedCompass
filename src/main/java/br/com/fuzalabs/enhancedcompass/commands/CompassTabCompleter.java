@@ -25,7 +25,8 @@ public class CompassTabCompleter implements TabCompleter {
     public List<String> onTabComplete(
             CommandSender sender, Command command, String alias, String[] args) {
 
-        if (!(sender instanceof Player player)) return List.of();
+        if (!(sender instanceof Player player))
+            return List.of();
 
         UUID uuid = player.getUniqueId();
 
@@ -35,6 +36,12 @@ public class CompassTabCompleter implements TabCompleter {
             // Adiciona comandos primários
             base.add("set");
             base.add("reset");
+
+            // Adiciona comando admin se tem permissão
+            if (player.hasPermission("enhancedcompass.admin")) {
+                base.add("reload");
+                base.add("debug");
+            }
 
             // Adiciona jogadores online
             for (Player online : Bukkit.getOnlinePlayers()) {

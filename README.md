@@ -1,6 +1,69 @@
 # 🧭 EnhancedCompass
 
-> A powerful and intuitive compass plugin for Minecraft servers that allows players to point their compass to players, saved locations, or specific coordinates.
+> A powerful and intuitive compass plugin for Mi## ⚙️ Configur## 🎮 Commands
+
+| Command                      | Description                       | Permission              |
+| ---------------------------- | --------------------------------- | ----------------------- | ------------------- |
+| `/compass <player>`          | Point compass to a player         | `enhancedcompass.use`   |
+| `/compass <location>`        | Point compass to a saved location | `enhancedcompass.use`   |
+| `/compass <x> <y> <z>`       | Point compass to coordinates      | `enhancedcompass.use`   |
+| `/compass set <name>`        | Save current location             | `enhancedcompass.use`   |
+| `/compass set global <name>` | Save global location              | `enhancedcompass.use`   |
+| `/compass reset`             | Reset compass to world spawn      | `enhancedcompass.use`   |
+| `/compass reload`            | Reload config and language files  | `enhancedcompass.admin` | Language Support 🌍 |
+
+EnhancedCompass supports multiple languages. Configure your preferred language in `config.yml`:
+
+```yaml
+# Language configuration
+# Available languages: en, pt_br
+# Default: en (English)
+language: en
+```
+
+**Available Languages:**
+
+- `en` - English (Default)
+- `pt_br` - Portuguese (Brazil)
+
+**Language Files Location:**
+
+```
+plugins/EnhancedCompass/lang/
+├── en.yml      # English translations
+└── pt_br.yml   # Portuguese (Brazil) translations
+```
+
+### Custom Messages
+
+You can customize messages by editing the language files in the `lang/` folder:
+
+**English (`lang/en.yml`):**
+
+```yaml
+messages:
+  no_compass: "&cYou need to be holding a compass to use this command."
+  player_not_found: "&cPlayer not found or offline."
+  target_not_in_same_world: "&cThe target is not in the same world as you."
+  location_saved: "&aLocation successfully saved as '&e{name}&a'."
+  global_location_saved: "&aGlobal location saved as '&e{name}&a'."
+  location_not_found: "&cLocation '&e{name}&c' not found."
+  compass_point_set: "&aYour compass now points to '&e{target}&a'."
+  compass_reset: "&aYour compass has been reset to the world spawn."
+  no_permission: "&cYou don't have permission to use this command."
+  config_reloaded: "&aConfiguration and language files reloaded successfully!"
+  usage: "&eUsage: /compass <player|location|coordinates>\n       /compass set <name>\n       /compass set global <name>\n       /compass reset\n       /compass reload"
+```
+
+**Portuguese (`lang/pt_br.yml`):**
+
+````yaml
+messages:
+  no_compass: "&cVocê precisa estar segurando uma bússola para usar este comando."
+  player_not_found: "&cJogador não encontrado ou offline."
+  target_not_in_same_world: "&cO alvo não está no mesmo mundo que você."
+  # ... and more messages in Portuguese
+```that allows players to point their compass to players, saved locations, or specific coordinates.
 
 [![Minecraft](https://img.shields.io/badge/Minecraft-1.13+-green.svg)](https://minecraft.net)
 [![Bukkit](https://img.shields.io/badge/Bukkit-Compatible-blue.svg)](https://bukkit.org)
@@ -46,20 +109,24 @@
 
 ### Basic Navigation
 
-```
-/compass Steve          # Point to player Steve
-/compass home           # Point to saved location "home"
-/compass 100 64 200     # Point to coordinates (100, 64, 200)
-/compass reset          # Reset to world spawn
+````
+
+/compass Steve # Point to player Steve
+/compass home # Point to saved location "home"
+/compass 100 64 200 # Point to coordinates (100, 64, 200)
+/compass reset # Reset to world spawn
+
 ```
 
 ### Saving Locations
 
 ```
-/compass set home       # Save current location as "home"
-/compass set shop       # Save current location as "shop"
-/compass set global spawn    # Save global location "spawn"
-```
+
+/compass set home # Save current location as "home"
+/compass set shop # Save current location as "shop"
+/compass set global spawn # Save global location "spawn"
+
+````
 
 ### Important Notes
 
@@ -83,7 +150,7 @@ messages:
   compass_point_set: "&aYour compass now points to '&e{target}&a'."
   compass_reset: "&aYour compass has been reset to the world spawn."
   usage: "&eUsage: /compass <player|location|coordinates>\n       /compass set <name>\n       /compass set global <name>\n       /compass reset"
-```
+````
 
 ### Color Codes
 
@@ -109,9 +176,10 @@ plugins/EnhancedCompass/
 
 ## 🔒 Permissions
 
-| Permission            | Description              | Default |
-| --------------------- | ------------------------ | ------- |
-| `enhancedcompass.use` | Use all compass commands | `true`  |
+| Permission              | Description                      | Default |
+| ----------------------- | -------------------------------- | ------- |
+| `enhancedcompass.use`   | Use all compass commands         | `true`  |
+| `enhancedcompass.admin` | Reload config and language files | `op`    |
 
 ## 🛠️ Development
 

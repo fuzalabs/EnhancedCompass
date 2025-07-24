@@ -11,3 +11,6 @@ permissions:
   enhancedcompass.use:
     description: Permission to use the compass command
     default: true
+  enhancedcompass.admin:
+    description: Permission to reload the plugin configuration
+    default: op

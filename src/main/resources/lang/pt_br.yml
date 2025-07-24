@@ -1,0 +1,12 @@
+messages:
+  no_compass: "&cVocê precisa estar segurando uma bússola para usar este comando."
+  player_not_found: "&cJogador não encontrado ou offline."
+  target_not_in_same_world: "&cO alvo não está no mesmo mundo que você."
+  location_saved: "&aLocal salvo com sucesso como '&e{name}&a'."
+  global_location_saved: "&aLocal global salvo como '&e{name}&a'."
+  location_not_found: "&cLocal '&e{name}&c' não encontrado."
+  compass_point_set: "&aSua bússola agora aponta para '&e{target}&a'."
+  compass_reset: "&aSua bússola foi resetada para o spawn do mundo."
+  no_permission: "&cVocê não tem permissão para usar este comando."
+  config_reloaded: "&aConfiguração e arquivos de idioma recarregados com sucesso!"
+  usage: "&eUso: /compass <jogador|local|coordenadas> | /compass set <nome> | /compass set global <nome> | /compass reset | /compass reload | /compass debug"

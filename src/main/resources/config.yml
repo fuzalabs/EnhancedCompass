@@ -1,10 +1,4 @@
-messages:
-  no_compass: "&cYou need to be holding a compass to use this command."
-  player_not_found: "&cPlayer not found or offline."
-  target_not_in_same_world: "&cThe target is not in the same world as you."
-  location_saved: "&aLocation successfully saved as '&e{name}&a'."
-  global_location_saved: "&aGlobal location saved as '&e{name}&a'."
-  location_not_found: "&cLocation '&e{name}&c' not found."
-  compass_point_set: "&aYour compass now points to '&e{target}&a'."
-  compass_reset: "&aYour compass has been reset to the world spawn."
-  usage: "&eUsage: /compass <player|location|coordinates>\n       /compass set <name>\n       /compass set global <name>\n       /compass reset"
+# Language configuration
+# Available languages: en, pt_br
+# Default: en (English)
+language: en

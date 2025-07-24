@@ -1,23 +1,47 @@
 package br.com.fuzalabs.enhancedcompass;
 
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import br.com.fuzalabs.enhancedcompass.commands.CompassCommand;
 import br.com.fuzalabs.enhancedcompass.commands.CompassTabCompleter;
+import br.com.fuzalabs.enhancedcompass.lang.LanguageManager;
 import br.com.fuzalabs.enhancedcompass.storage.LocationStorage;
 
 public class EnhancedCompass extends JavaPlugin {
 
-    private FileConfiguration config;
     private LocationStorage storage;
+    private LanguageManager languageManager;
 
     @Override
     public void onEnable() {
+        // Save default config file
         saveDefaultConfig();
-        config = getConfig();
+        
+        // Ensure lang directory exists
+        getDataFolder().mkdirs();
+        
+        // Initialize components
+        this.languageManager = new LanguageManager(this);
         this.storage = new LocationStorage(getDataFolder());
-        this.getCommand("compass").setExecutor(new CompassCommand(config, storage));
+        
+        // Register command and tab completer
+        this.getCommand("compass").setExecutor(new CompassCommand(storage, languageManager, this));
         this.getCommand("compass").setTabCompleter(new CompassTabCompleter(storage));
+        
+        getLogger().info("EnhancedCompass has been enabled!");
+    }
+
+    @Override
+    public void onDisable() {
+        getLogger().info("EnhancedCompass has been disabled!");
+    }
+
+    public LanguageManager getLanguageManager() {
+        return languageManager;
+    }
+    
+    public void reloadPlugin() {
+        reloadConfig();
+        languageManager.reloadLanguage();
     }
 }
