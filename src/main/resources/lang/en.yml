@@ -9,4 +9,5 @@ messages:
   compass_reset: "&aYour compass has been reset to the world spawn."
   no_permission: "&cYou don't have permission to use this command."
   config_reloaded: "&aConfiguration and language files reloaded successfully!"
-  usage: "&eUsage: /compass <player|location|coordinates> | /compass set <name> | /compass set global <name> | /compass reset | /compass reload | | /compass debug"
+  usage: "&eUsage: /compass <player|location|coordinates> | /compass set <name> | /compass reset"
+  admin_usage: "&eAdministrative Usage:\n&f/compassadmin reload &7- Reload config and language files\n&f/compassadmin setglobal <name> &7- Save global location\n&f/compassadmin debug &7- Show debug information\n&f/compassadmin info &7- Show plugin information\n&f/compassadmin help &7- Show this help"

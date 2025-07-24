@@ -37,12 +37,6 @@ public class CompassTabCompleter implements TabCompleter {
             base.add("set");
             base.add("reset");
 
-            // Adiciona comando admin se tem permissão
-            if (player.hasPermission("enhancedcompass.admin")) {
-                base.add("reload");
-                base.add("debug");
-            }
-
             // Adiciona jogadores online
             for (Player online : Bukkit.getOnlinePlayers()) {
                 if (!online.equals(player))
@@ -54,10 +48,6 @@ public class CompassTabCompleter implements TabCompleter {
             base.addAll(storage.getAllGlobalLocationNames());
 
             return filterByPrefix(base, args[0]);
-        }
-
-        if (args.length == 2 && args[0].equalsIgnoreCase("set")) {
-            return List.of("global");
         }
 
         return List.of();

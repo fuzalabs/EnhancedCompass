@@ -9,7 +9,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import br.com.fuzalabs.enhancedcompass.EnhancedCompass;
 import br.com.fuzalabs.enhancedcompass.lang.LanguageManager;
 import br.com.fuzalabs.enhancedcompass.storage.LocationStorage;
 
@@ -19,12 +18,10 @@ public class CompassCommand implements CommandExecutor {
 
   private final LocationStorage storage;
   private final LanguageManager languageManager;
-  private final EnhancedCompass plugin;
 
-  public CompassCommand(LocationStorage storage, LanguageManager languageManager, EnhancedCompass plugin) {
+  public CompassCommand(LocationStorage storage, LanguageManager languageManager) {
     this.storage = storage;
     this.languageManager = languageManager;
-    this.plugin = plugin;
   }
 
   private boolean isHoldingCompass(Player player) {
@@ -59,40 +56,13 @@ public class CompassCommand implements CommandExecutor {
           return true;
         }
 
-        if (args[1].equalsIgnoreCase("global")) {
-          if (args.length < 3) {
-            sendMessage(player, "usage", null);
-            return true;
-          }
-          storage.saveGlobalLocation(args[2], player.getLocation());
-          sendMessage(player, "global_location_saved", Map.of("name", args[2]));
-        } else {
-          storage.savePlayerLocation(player.getUniqueId(), args[1], player.getLocation());
-          sendMessage(player, "location_saved", Map.of("name", args[1]));
-        }
+        storage.savePlayerLocation(player.getUniqueId(), args[1], player.getLocation());
+        sendMessage(player, "location_saved", Map.of("name", args[1]));
       }
 
       case "reset" -> {
         player.setCompassTarget(player.getWorld().getSpawnLocation());
         sendMessage(player, "compass_reset", null);
-      }
-
-      case "reload" -> {
-        if (!player.hasPermission("enhancedcompass.admin")) {
-          sendMessage(player, "no_permission", null);
-          return true;
-        }
-        plugin.reloadPlugin();
-        sendMessage(player, "config_reloaded", null);
-      }
-
-      case "debug" -> {
-        if (!player.hasPermission("enhancedcompass.admin")) {
-          sendMessage(player, "no_permission", null);
-          return true;
-        }
-        languageManager.debugLanguageInfo();
-        player.sendMessage("§aDebug information logged to console. Current language: §e" + languageManager.getCurrentLanguage());
       }
 
       default -> {

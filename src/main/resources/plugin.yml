@@ -5,12 +5,17 @@ api-version: 1.13
 commands:
   compass:
     description: Point compass to player, saved location or coordinates
-    usage: /<command> <player|location|coordinates|set [global]|reset> <name|x y z>
+    usage: /<command> <player|location|coordinates|set|reset> <name|x y z>
     permission: enhancedcompass.use
+  compassadmin:
+    description: Administrative commands for EnhancedCompass
+    usage: /<command> <reload|setglobal|debug> [args]
+    permission: enhancedcompass.admin
+    aliases: [cadmin, ca]
 permissions:
   enhancedcompass.use:
     description: Permission to use the compass command
     default: true
   enhancedcompass.admin:
-    description: Permission to reload the plugin configuration
+    description: Permission to use administrative commands
     default: op
