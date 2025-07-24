@@ -1,0 +1,13 @@
+name: EnhancedCompass
+version: 0.1.0
+main: br.com.fuzalabs.enhancedcompass.EnhancedCompass
+api-version: 1.13
+commands:
+  compass:
+    description: Point compass to player, saved location or coordinates
+    usage: /<command> <player|location|coordinates|set [global]|reset> <name|x y z>
+    permission: enhancedcompass.use
+permissions:
+  enhancedcompass.use:
+    description: Permission to use the compass command
+    default: true
