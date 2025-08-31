@@ -2,3 +2,13 @@
 # Available languages: en, pt_br
 # Default: en (English)
 language: en
+
+# Groups configuration
+# Define groups and their location limits
+# Example:
+# groups:
+#   default: 3
+#   vip: 10
+#   staff: 100
+groups:
+  default: 3

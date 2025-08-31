@@ -11,3 +11,4 @@ messages:
   config_reloaded: "&aConfiguration and language files reloaded successfully!"
   usage: "&eUsage: /compass <player|location|coordinates> | /compass set <name> | /compass reset"
   admin_usage: "&eAdministrative Usage:\n&f/compassadmin reload &7- Reload config and language files\n&f/compassadmin setglobal <name> &7- Save global location\n&f/compassadmin debug &7- Show debug information\n&f/compassadmin info &7- Show plugin information\n&f/compassadmin help &7- Show this help"
+  location_limit_reached: "&cYou have reached your location limit ({limit}). Upgrade your permission to save more locations."

@@ -8,6 +8,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import br.com.fuzalabs.enhancedcompass.lang.LanguageManager;
 import br.com.fuzalabs.enhancedcompass.storage.LocationStorage;
@@ -18,10 +20,12 @@ public class CompassCommand implements CommandExecutor {
 
   private final LocationStorage storage;
   private final LanguageManager languageManager;
+  private final JavaPlugin plugin;
 
-  public CompassCommand(LocationStorage storage, LanguageManager languageManager) {
+  public CompassCommand(LocationStorage storage, LanguageManager languageManager, JavaPlugin plugin) {
     this.storage = storage;
     this.languageManager = languageManager;
+    this.plugin = plugin;
   }
 
   private boolean isHoldingCompass(Player player) {
@@ -32,6 +36,20 @@ public class CompassCommand implements CommandExecutor {
   private void sendMessage(CommandSender sender, String key, Map<String, String> replacements) {
     String message = languageManager.getMessage(key, replacements);
     sender.sendMessage(message);
+  }
+
+  private int getPlayerLocationLimit(Player player) {
+    FileConfiguration config = plugin.getConfig();
+    if (!config.isConfigurationSection("groups"))
+      return 3; // fallback
+    String group = "default";
+    for (String key : config.getConfigurationSection("groups").getKeys(false)) {
+      if (player.hasPermission("enhancedcompass.group." + key)) {
+        group = key;
+        break;
+      }
+    }
+    return config.getInt("groups." + group, 3);
   }
 
   @Override
@@ -55,7 +73,12 @@ public class CompassCommand implements CommandExecutor {
           sendMessage(player, "usage", null);
           return true;
         }
-
+        int maxLocations = getPlayerLocationLimit(player);
+        int currentLocations = storage.getAllPlayerLocationNames(player.getUniqueId()).size();
+        if (currentLocations >= maxLocations) {
+          sendMessage(player, "location_limit_reached", Map.of("limit", String.valueOf(maxLocations)));
+          return true;
+        }
         storage.savePlayerLocation(player.getUniqueId(), args[1], player.getLocation());
         sendMessage(player, "location_saved", Map.of("name", args[1]));
       }

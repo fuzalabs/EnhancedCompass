@@ -16,6 +16,9 @@ permissions:
   enhancedcompass.use:
     description: Permission to use the compass command
     default: true
+  enhancedcompass.group.default:
+    description: Default group permission for location limits
+    default: true
   enhancedcompass.admin:
     description: Permission to use administrative commands
     default: op

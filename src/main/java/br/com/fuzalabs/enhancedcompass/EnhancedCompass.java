@@ -27,7 +27,7 @@ public class EnhancedCompass extends JavaPlugin {
         this.storage = new LocationStorage(getDataFolder());
 
         // Register command and tab completer
-        this.getCommand("compass").setExecutor(new CompassCommand(storage, languageManager));
+        this.getCommand("compass").setExecutor(new CompassCommand(storage, languageManager, this));
         this.getCommand("compass").setTabCompleter(new CompassTabCompleter(storage));
 
         // Register admin command and tab completer
