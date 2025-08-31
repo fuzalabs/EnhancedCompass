@@ -13,7 +13,6 @@ This comprehensive guide covers all features, configuration options, and advance
 - [File Structure](#file-structure)
 - [Usage Examples](#usage-examples)
 - [Troubleshooting](#troubleshooting)
-- [API Reference](#api-reference)
 
 ## Installation
 
@@ -34,24 +33,23 @@ This comprehensive guide covers all features, configuration options, and advance
 
 ### Player Commands
 
-| Command                      | Description                                | Permission              | Example                     |
-| ---------------------------- | ------------------------------------------ | ----------------------- | --------------------------- |
-| `/compass <player>`          | Point compass to an online player          | `enhancedcompass.use`   | `/compass Steve`            |
-| `/compass <location>`        | Point compass to a saved location          | `enhancedcompass.use`   | `/compass home`             |
-| `/compass <x> <y> <z>`       | Point compass to specific coordinates      | `enhancedcompass.use`   | `/compass 100 64 200`       |
-| `/compass set <name>`        | Save current location as personal waypoint | `enhancedcompass.use`   | `/compass set home`         |
-| `/compass set global <name>` | Save current location as global waypoint   | `enhancedcompass.admin` | `/compass set global spawn` |
-| `/compass list`              | List all saved locations                   | `enhancedcompass.use`   | `/compass list`             |
-| `/compass delete <name>`     | Delete a saved location                    | `enhancedcompass.use`   | `/compass delete home`      |
-| `/compass reset`             | Reset compass to world spawn               | `enhancedcompass.use`   | `/compass reset`            |
+| Command                | Description                                | Permission            | Example               |
+| ---------------------- | ------------------------------------------ | --------------------- | --------------------- |
+| `/compass <player>`    | Point compass to an online player          | `enhancedcompass.use` | `/compass Steve`      |
+| `/compass <location>`  | Point compass to a saved location          | `enhancedcompass.use` | `/compass home`       |
+| `/compass <x> <y> <z>` | Point compass to specific coordinates      | `enhancedcompass.use` | `/compass 100 64 200` |
+| `/compass set <name>`  | Save current location as personal waypoint | `enhancedcompass.use` | `/compass set home`   |
+| `/compass reset`       | Reset compass to world spawn               | `enhancedcompass.use` | `/compass reset`      |
 
 ### Admin Commands
 
-| Command                                     | Description                             | Permission              | Example                            |
-| ------------------------------------------- | --------------------------------------- | ----------------------- | ---------------------------------- |
-| `/compass reload`                           | Reload configuration and language files | `enhancedcompass.admin` | `/compass reload`                  |
-| `/compass admin list <player>`              | List locations of specific player       | `enhancedcompass.admin` | `/compass admin list Steve`        |
-| `/compass admin delete <player> <location>` | Delete player's location                | `enhancedcompass.admin` | `/compass admin delete Steve home` |
+| Command                          | Description                              | Permission              | Example                         |
+| -------------------------------- | ---------------------------------------- | ----------------------- | ------------------------------- |
+| `/compassadmin reload`           | Reload configuration and language files  | `enhancedcompass.admin` | `/compassadmin reload`          |
+| `/compassadmin setglobal <name>` | Save current location as global waypoint | `enhancedcompass.admin` | `/compassadmin setglobal spawn` |
+| `/compassadmin debug`            | Show debug information in console        | `enhancedcompass.admin` | `/compassadmin debug`           |
+| `/compassadmin info`             | Show plugin information                  | `enhancedcompass.admin` | `/compassadmin info`            |
+| `/compassadmin help`             | Show admin command help                  | `enhancedcompass.admin` | `/compassadmin help`            |
 
 ## Permissions
 
@@ -69,80 +67,32 @@ Location limits are controlled by group permissions. Players receive the highest
 | Permission                      | Description                     | Default Limit |
 | ------------------------------- | ------------------------------- | ------------- |
 | `enhancedcompass.group.default` | Default group with basic limits | 3 locations   |
-| `enhancedcompass.group.vip`     | VIP group with increased limits | 10 locations  |
-| `enhancedcompass.group.staff`   | Staff group with high limits    | 100 locations |
-
-### Advanced Permissions
-
-| Permission                       | Description                            |
-| -------------------------------- | -------------------------------------- |
-| `enhancedcompass.bypass.compass` | Use commands without holding a compass |
-| `enhancedcompass.bypass.world`   | Point compass across different worlds  |
-| `enhancedcompass.unlimited`      | Bypass all location limits             |
 
 ## Configuration
 
 ### Main Configuration (`config.yml`)
 
 ```yaml
-# EnhancedCompass Configuration
-version: 1.0
-
-# Group-based location limits
-groups:
-  default: 3 # Default players can save 3 locations
-  vip: 10 # VIP players can save 10 locations
-  staff: 100 # Staff can save 100 locations
-
-# Plugin settings
-settings:
-  # Require players to hold a compass to use commands
-  require_compass: true
-
-  # Allow cross-world compass pointing
-  allow_cross_world: false
-
-  # Save location on death
-  save_death_location: true
-
-  # Auto-save interval (in minutes, 0 to disable)
-  auto_save_interval: 5
-
-# Default language (supports: en, pt_br, es, fr, de)
+# Language configuration
+# Available languages: en, pt_br
+# Default: en (English)
 language: en
 
-# Custom messages (overrides language files)
-messages:
-  no_compass: "&cYou need to be holding a compass to use this command."
-  player_not_found: "&cPlayer '&e{player}&c' not found or offline."
-  target_not_in_same_world: "&cThe target is not in the same world as you."
-  location_saved: "&aLocation '&e{name}&a' successfully saved!"
-  global_location_saved: "&aGlobal location '&e{name}&a' saved successfully!"
-  location_not_found: "&cLocation '&e{name}&c' not found."
-  location_deleted: "&aLocation '&e{name}&a' deleted successfully!"
-  location_limit_reached: "&cYou have reached your location limit (&e{limit}&c). Delete some locations or upgrade your group."
-  compass_point_set: "&aYour compass now points to '&e{target}&a'."
-  compass_reset: "&aYour compass has been reset to the world spawn."
-  invalid_coordinates: "&cInvalid coordinates. Please use whole numbers."
-  same_world_required: "&cYou can only point to locations in the same world."
-
-  # List command messages
-  locations_header: "&e--- Your Saved Locations ---"
-  locations_entry: "&a{index}. &e{name} &7({world}: {x}, {y}, {z})"
-  global_locations_header: "&e--- Global Locations ---"
-  no_locations: "&cYou have no saved locations."
-
-  # Admin messages
-  config_reloaded: "&aConfiguration and language files reloaded successfully!"
-  player_locations_header: "&e--- Locations for {player} ---"
-  admin_location_deleted: "&aDeleted location '&e{name}&a' from player '&e{player}&a'."
-
-  # Usage messages
-  usage_main: "&eUsage: /compass <player|location|coordinates|set|list|delete|reset>"
-  usage_set: "&eUsage: /compass set [global] <name>"
-  usage_delete: "&eUsage: /compass delete <name>"
-  usage_admin: "&eUsage: /compass admin <list|delete> <player> [location]"
+# Groups configuration
+# Define groups and their location limits
+# Example:
+# groups:
+#   default: 3
+#   vip: 10
+#   staff: 100
+groups:
+  default: 3
 ```
+
+**Configuration Options:**
+
+- **`language`**: Sets the default language for messages. Currently supports `en` (English) and `pt_br` (Portuguese Brazil)
+- **`groups`**: Defines permission groups and their location limits. Players with higher group permissions can save more locations
 
 ### Language Files
 
@@ -207,18 +157,15 @@ If a player has multiple group permissions, the plugin uses the **highest** limi
 
 - **English** (`en`)
 - **Portuguese Brazil** (`pt_br`)
-- **Spanish** (`es`) - Coming soon
-- **French** (`fr`) - Coming soon
-- **German** (`de`) - Coming soon
 
 ### Changing Language
 
 1. Edit `language` setting in `config.yml`
-2. Run `/compass reload` or restart the server
+2. Run `/compassadmin reload` or restart the server
 
 ### Custom Messages
 
-You can override specific messages in `config.yml` under the `messages` section without changing the language file.
+Language messages are controlled by the individual language files (`en.yml`, `pt_br.yml`) in the `lang/` directory. You can edit these files directly to customize messages, but changes will be overwritten when the plugin is updated.
 
 ### Color Codes
 
@@ -324,14 +271,8 @@ locations:
 /compass set secret_base
 
 # Save global locations (admin only)
-/compass set global spawn
-/compass set global pvp_arena
-
-# List all your locations
-/compass list
-
-# Delete a location
-/compass delete old_base
+/compassadmin setglobal spawn
+/compassadmin setglobal pvp_arena
 ```
 
 ### Advanced Usage
@@ -340,14 +281,14 @@ locations:
 # Reset compass to world spawn
 /compass reset
 
-# Admin: List another player's locations
-/compass admin list Steve
+# Admin: Reload configuration
+/compassadmin reload
 
-# Admin: Delete another player's location
-/compass admin delete Steve old_house
+# Admin: Show plugin information
+/compassadmin info
 
-# Reload configuration
-/compass reload
+# Admin: Debug language information
+/compassadmin debug
 ```
 
 ## Troubleshooting
@@ -361,8 +302,7 @@ locations:
 **Solutions**:
 
 - Hold a compass in your main hand
-- Ask an admin to give you the `enhancedcompass.bypass.compass` permission
-- Admin can set `require_compass: false` in config.yml
+- This requirement is currently hardcoded and cannot be bypassed
 
 #### "Player not found or offline"
 
@@ -380,9 +320,9 @@ locations:
 
 **Solutions**:
 
-- Use `/compass list` to see available locations
-- Check spelling of location name
+- Check spelling of location name (names are case-insensitive)
 - Verify if it's a personal or global location
+- Make sure you've saved the location first with `/compass set <name>`
 
 #### "The target is not in the same world"
 
@@ -391,8 +331,7 @@ locations:
 **Solutions**:
 
 - Travel to the same world as your target
-- Ask an admin for `enhancedcompass.bypass.world` permission
-- Admin can enable `allow_cross_world: true` in config
+- Cross-world compass pointing is currently not supported
 
 #### "You have reached your location limit"
 
@@ -400,7 +339,7 @@ locations:
 
 **Solutions**:
 
-- Delete unused locations with `/compass delete <name>`
+- Currently no way to delete locations (feature not yet implemented)
 - Ask an admin for a higher group permission
 - Admin can increase group limits in config.yml
 
@@ -408,9 +347,8 @@ locations:
 
 #### High memory usage
 
-- Reduce `auto_save_interval` or set to 0
-- Clean up unused player location files
-- Consider using a database storage plugin
+- Clean up unused player location files in `player-locations/` directory
+- Consider regular maintenance of location files
 
 #### Slow commands
 
@@ -422,7 +360,7 @@ locations:
 
 #### Changes not taking effect
 
-- Run `/compass reload` after editing config files
+- Run `/compassadmin reload` after editing config files
 - Check YAML syntax is valid
 - Restart server if reload doesn't work
 
@@ -431,82 +369,6 @@ locations:
 - Verify language file exists in `lang/` folder
 - Check `language` setting in config.yml
 - Ensure file encoding is UTF-8
-
-## API Reference
-
-### For Developers
-
-EnhancedCompass provides a simple API for other plugins to interact with location data.
-
-#### Getting the API
-
-```java
-import br.com.fuzalabs.enhancedcompass.api.EnhancedCompassAPI;
-
-// Get API instance
-EnhancedCompassAPI api = EnhancedCompassAPI.getInstance();
-```
-
-#### Basic Methods
-
-```java
-// Check if player has a location
-boolean hasLocation = api.hasLocation(player.getUniqueId(), "home");
-
-// Get player's location
-Location location = api.getLocation(player.getUniqueId(), "home");
-
-// Save a location for player
-api.saveLocation(player.getUniqueId(), "home", player.getLocation());
-
-// Delete a location
-api.deleteLocation(player.getUniqueId(), "home");
-
-// Get all locations for player
-Map<String, Location> locations = api.getPlayerLocations(player.getUniqueId());
-
-// Point player's compass to location
-api.pointCompass(player, location);
-```
-
-#### Events
-
-```java
-import br.com.fuzalabs.enhancedcompass.events.*;
-
-@EventHandler
-public void onLocationSave(LocationSaveEvent event) {
-    Player player = event.getPlayer();
-    String locationName = event.getLocationName();
-    Location location = event.getLocation();
-
-    // Your code here
-}
-
-@EventHandler
-public void onCompassPoint(CompassPointEvent event) {
-    Player player = event.getPlayer();
-    Location target = event.getTarget();
-
-    // Your code here
-}
-```
-
-#### Maven Dependency
-
-```xml
-<repository>
-    <id>fuzalabs-repo</id>
-    <url>https://repo.fuzalabs.com/releases</url>
-</repository>
-
-<dependency>
-    <groupId>br.com.fuzalabs</groupId>
-    <artifactId>enhancedcompass</artifactId>
-    <version>1.0.0</version>
-    <scope>provided</scope>
-</dependency>
-```
 
 ---
 
@@ -532,4 +394,4 @@ When reporting bugs, please include:
 ---
 
 **Last updated**: August 31, 2025  
-**Plugin version**: 1.0.0
+**Plugin version**: 0.1.0
