@@ -1,7 +1,6 @@
 name: EnhancedCompass
 version: 0.1.0
 main: br.com.fuzalabs.enhancedcompass.EnhancedCompass
-api-version: 1.13
 commands:
   compass:
     description: Point compass to player, saved location or coordinates

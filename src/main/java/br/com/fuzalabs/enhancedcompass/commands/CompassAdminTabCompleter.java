@@ -14,7 +14,7 @@ public class CompassAdminTabCompleter implements TabCompleter {
   public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
 
     if (!sender.hasPermission("enhancedcompass.admin")) {
-      return List.of();
+      return new ArrayList<>();
     }
 
     if (args.length == 1) {
@@ -46,6 +46,6 @@ public class CompassAdminTabCompleter implements TabCompleter {
           .toList();
     }
 
-    return List.of();
+    return new ArrayList<>();
   }
 }

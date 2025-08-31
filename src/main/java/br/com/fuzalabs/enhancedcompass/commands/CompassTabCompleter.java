@@ -25,9 +25,11 @@ public class CompassTabCompleter implements TabCompleter {
     public List<String> onTabComplete(
             CommandSender sender, Command command, String alias, String[] args) {
 
-        if (!(sender instanceof Player player))
-            return List.of();
+        if (!(sender instanceof Player)) {
+            return new ArrayList<>();
+        }
 
+        Player player = (Player) sender;
         UUID uuid = player.getUniqueId();
 
         if (args.length == 1) {
@@ -50,7 +52,7 @@ public class CompassTabCompleter implements TabCompleter {
             return filterByPrefix(base, args[0]);
         }
 
-        return List.of();
+        return new ArrayList<>();
     }
 
     private List<String> filterByPrefix(List<String> options, String prefix) {

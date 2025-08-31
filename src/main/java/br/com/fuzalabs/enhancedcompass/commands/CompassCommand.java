@@ -15,6 +15,7 @@ import br.com.fuzalabs.enhancedcompass.lang.LanguageManager;
 import br.com.fuzalabs.enhancedcompass.storage.LocationStorage;
 
 import java.util.Map;
+import java.util.Collections;
 
 public class CompassCommand implements CommandExecutor {
 
@@ -29,7 +30,7 @@ public class CompassCommand implements CommandExecutor {
   }
 
   private boolean isHoldingCompass(Player player) {
-    ItemStack item = player.getInventory().getItemInMainHand();
+    ItemStack item = player.getInventory().getItemInHand();
     return item != null && item.getType() == Material.COMPASS;
   }
 
@@ -54,8 +55,11 @@ public class CompassCommand implements CommandExecutor {
 
   @Override
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-    if (!(sender instanceof Player player))
+    if (!(sender instanceof Player)) {
       return false;
+    }
+
+    Player player = (Player) sender;
 
     if (!isHoldingCompass(player)) {
       sendMessage(player, "no_compass", null);
@@ -68,7 +72,7 @@ public class CompassCommand implements CommandExecutor {
     }
 
     switch (args[0].toLowerCase()) {
-      case "set" -> {
+      case "set":
         if (args.length < 2) {
           sendMessage(player, "usage", null);
           return true;
@@ -76,19 +80,20 @@ public class CompassCommand implements CommandExecutor {
         int maxLocations = getPlayerLocationLimit(player);
         int currentLocations = storage.getAllPlayerLocationNames(player.getUniqueId()).size();
         if (currentLocations >= maxLocations) {
-          sendMessage(player, "location_limit_reached", Map.of("limit", String.valueOf(maxLocations)));
+          sendMessage(player, "location_limit_reached",
+              Collections.singletonMap("limit", String.valueOf(maxLocations)));
           return true;
         }
         storage.savePlayerLocation(player.getUniqueId(), args[1], player.getLocation());
-        sendMessage(player, "location_saved", Map.of("name", args[1]));
-      }
+        sendMessage(player, "location_saved", Collections.singletonMap("name", args[1]));
+        break;
 
-      case "reset" -> {
+      case "reset":
         player.setCompassTarget(player.getWorld().getSpawnLocation());
         sendMessage(player, "compass_reset", null);
-      }
+        break;
 
-      default -> {
+      default:
         Location targetLoc = null;
 
         if (args.length == 1) {
@@ -99,21 +104,21 @@ public class CompassCommand implements CommandExecutor {
               return true;
             }
             targetLoc = targetPlayer.getLocation();
-            sendMessage(player, "compass_point_set", Map.of("target", targetPlayer.getName()));
+            sendMessage(player, "compass_point_set", Collections.singletonMap("target", targetPlayer.getName()));
           } else {
             String key = args[0].toLowerCase();
             targetLoc = storage.getPlayerLocation(player.getUniqueId(), key);
             if (targetLoc == null)
               targetLoc = storage.getGlobalLocation(key);
             if (targetLoc == null) {
-              sendMessage(player, "location_not_found", Map.of("name", key));
+              sendMessage(player, "location_not_found", Collections.singletonMap("name", key));
               return true;
             }
             if (!targetLoc.getWorld().equals(player.getWorld())) {
               sendMessage(player, "target_not_in_same_world", null);
               return true;
             }
-            sendMessage(player, "compass_point_set", Map.of("target", args[0]));
+            sendMessage(player, "compass_point_set", Collections.singletonMap("target", args[0]));
           }
         } else if (args.length == 3) {
           try {
@@ -121,7 +126,7 @@ public class CompassCommand implements CommandExecutor {
             double y = Double.parseDouble(args[1]);
             double z = Double.parseDouble(args[2]);
             targetLoc = new Location(player.getWorld(), x, y, z);
-            sendMessage(player, "compass_point_set", Map.of("target", x + ", " + y + ", " + z));
+            sendMessage(player, "compass_point_set", Collections.singletonMap("target", x + ", " + y + ", " + z));
           } catch (NumberFormatException e) {
             sendMessage(player, "usage", null);
             return true;
@@ -132,7 +137,7 @@ public class CompassCommand implements CommandExecutor {
         }
 
         player.setCompassTarget(targetLoc);
-      }
+        break;
     }
 
     return true;

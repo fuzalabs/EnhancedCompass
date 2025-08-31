@@ -10,6 +10,7 @@ import br.com.fuzalabs.enhancedcompass.lang.LanguageManager;
 import br.com.fuzalabs.enhancedcompass.storage.LocationStorage;
 
 import java.util.Map;
+import java.util.Collections;
 
 public class CompassAdminCommand implements CommandExecutor {
 
@@ -41,22 +42,24 @@ public class CompassAdminCommand implements CommandExecutor {
     }
 
     switch (args[0].toLowerCase()) {
-      case "reload" -> {
+      case "reload":
         plugin.reloadPlugin();
         sendMessage(sender, "config_reloaded", null);
-      }
+        break;
 
-      case "debug" -> {
+      case "debug":
         languageManager.debugLanguageInfo();
         sender.sendMessage(
             "§aDebug information logged to console. Current language: §e" + languageManager.getCurrentLanguage());
-      }
+        break;
 
-      case "setglobal" -> {
-        if (!(sender instanceof Player player)) {
+      case "setglobal":
+        if (!(sender instanceof Player)) {
           sender.sendMessage("§cThis command can only be used by players.");
           return true;
         }
+
+        Player player = (Player) sender;
 
         if (args.length < 2) {
           sendMessage(sender, "admin_usage", null);
@@ -64,26 +67,26 @@ public class CompassAdminCommand implements CommandExecutor {
         }
 
         storage.saveGlobalLocation(args[1], player.getLocation());
-        sendMessage(sender, "global_location_saved", Map.of("name", args[1]));
-      }
+        sendMessage(sender, "global_location_saved", Collections.singletonMap("name", args[1]));
+        break;
 
-      case "info" -> {
+      case "info":
         sender.sendMessage("§6=== EnhancedCompass Admin Info ===");
-        sender.sendMessage("§eVersion: §f" + plugin.getPluginMeta().getVersion());
+        sender.sendMessage("§eVersion: §f" + plugin.getDescription().getVersion());
         sender.sendMessage("§eCurrent Language: §f" + languageManager.getCurrentLanguage());
         sender.sendMessage(
             "§eLanguage Available: §f" + languageManager.isLanguageAvailable(languageManager.getCurrentLanguage()));
         sender.sendMessage("§ePlugin Enabled: §f" + plugin.isEnabled());
         sender.sendMessage("§6==============================");
-      }
+        break;
 
-      case "help" -> {
+      case "help":
         sendMessage(sender, "admin_usage", null);
-      }
+        break;
 
-      default -> {
+      default:
         sendMessage(sender, "admin_usage", null);
-      }
+        break;
     }
 
     return true;
