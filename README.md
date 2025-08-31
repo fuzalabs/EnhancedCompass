@@ -1,270 +1,92 @@
 # 🧭 EnhancedCompass
 
-> A powerful and intuitive compass plugin for Mi## ⚙️ Configur## 🎮 Commands
+**A powerful and intuitive compass plugin for Minecraft that transforms your navigation experience.**
 
-| Command                      | Description                       | Permission              |
-| ---------------------------- | --------------------------------- | ----------------------- | ------------------- |
-| `/compass <player>`          | Point compass to a player         | `enhancedcompass.use`   |
-| `/compass <location>`        | Point compass to a saved location | `enhancedcompass.use`   |
-| `/compass <x> <y> <z>`       | Point compass to coordinates      | `enhancedcompass.use`   |
-| `/compass set <name>`        | Save current location             | `enhancedcompass.use`   |
-| `/compass set global <name>` | Save global location              | `enhancedcompass.use`   |
-| `/compass reset`             | Reset compass to world spawn      | `enhancedcompass.use`   |
-| `/compass reload`            | Reload config and language files  | `enhancedcompass.admin` | Language Support 🌍 |
-
-EnhancedCompass supports multiple languages. Configure your preferred language in `config.yml`:
-
-```yaml
-# Language configuration
-# Available languages: en, pt_br
-# Default: en (English)
-language: en
-```
-
-**Available Languages:**
-
-- `en` - English (Default)
-- `pt_br` - Portuguese (Brazil)
-
-**Language Files Location:**
-
-```
-plugins/EnhancedCompass/lang/
-├── en.yml      # English translations
-└── pt_br.yml   # Portuguese (Brazil) translations
-```
-
-### Custom Messages
-
-You can customize messages by editing the language files in the `lang/` folder:
-
-**English (`lang/en.yml`):**
-
-```yaml
-messages:
-  no_compass: "&cYou need to be holding a compass to use this command."
-  player_not_found: "&cPlayer not found or offline."
-  target_not_in_same_world: "&cThe target is not in the same world as you."
-  location_saved: "&aLocation successfully saved as '&e{name}&a'."
-  global_location_saved: "&aGlobal location saved as '&e{name}&a'."
-  location_not_found: "&cLocation '&e{name}&c' not found."
-  compass_point_set: "&aYour compass now points to '&e{target}&a'."
-  compass_reset: "&aYour compass has been reset to the world spawn."
-  no_permission: "&cYou don't have permission to use this command."
-  config_reloaded: "&aConfiguration and language files reloaded successfully!"
-  usage: "&eUsage: /compass <player|location|coordinates>\n       /compass set <name>\n       /compass set global <name>\n       /compass reset\n       /compass reload"
-```
-
-**Portuguese (`lang/pt_br.yml`):**
-
-````yaml
-messages:
-  no_compass: "&cVocê precisa estar segurando uma bússola para usar este comando."
-  player_not_found: "&cJogador não encontrado ou offline."
-  target_not_in_same_world: "&cO alvo não está no mesmo mundo que você."
-  # ... and more messages in Portuguese
-```that allows players to point their compass to players, saved locations, or specific coordinates.
-
-[![Minecraft](https://img.shields.io/badge/Minecraft-1.13+-green.svg)](https://minecraft.net)
-[![Bukkit](https://img.shields.io/badge/Bukkit-Compatible-blue.svg)](https://bukkit.org)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-1.0.0-red.svg)](#)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Java](https://img.shields.io/badge/java-8+-blue.svg)](https://www.oracle.com/java/)
+[![Minecraft](https://img.shields.io/badge/minecraft-1.8--1.20+-green.svg)](https://minecraft.net/)
 
 ## ✨ Features
 
-- 🎯 **Point to Players**: Direct your compass to any online player
-- 📍 **Save Locations**: Store and navigate to personal waypoints
-- 🌍 **Global Locations**: Server-wide waypoints accessible by all players
-- 📐 **Coordinate Navigation**: Point to specific X, Y, Z coordinates
-- 🔄 **Compass Reset**: Restore compass to world spawn
-- 🔧 **Configurable Messages**: Customize all plugin messages
-- 🎨 **Color Support**: Full color code support in messages
-- 🗂️ **Data Persistence**: Locations saved between server restarts
+- 🎯 **Point compass to players** - Navigate to any online player instantly
+- 📍 **Save custom locations** - Create personal and global waypoints
+- 🔢 **Navigate by coordinates** - Jump to any XYZ position
+- � **Group-based location limits** - Configurable limits per permission group
+- 🌐 **Multi-language support** - Localized messages for your community
+- ⚡ **High performance** - Lightweight and optimized for busy servers
 
-## 📋 Requirements
+## 🚀 Quick Start
 
-- **Minecraft**: 1.13 or higher
-- **Server Software**: Bukkit, Spigot, or Paper
-- **Java**: 8 or higher
+### Installation
 
-## 🚀 Installation
-
-1. Download the latest `EnhancedCompass.jar` from the releases page
-2. Place the JAR file in your server's `plugins` folder
+1. Download the latest release from [Releases](https://github.com/fuzalabs/EnhancedCompass/releases)
+2. Drop the JAR file into your `plugins/` directory
 3. Restart your server
-4. The plugin will generate a `config.yml` file automatically
+4. Configure groups and permissions (optional)
 
-## 🎮 Commands
-
-| Command                      | Description                       | Permission            |
-| ---------------------------- | --------------------------------- | --------------------- |
-| `/compass <player>`          | Point compass to a player         | `enhancedcompass.use` |
-| `/compass <location>`        | Point compass to a saved location | `enhancedcompass.use` |
-| `/compass <x> <y> <z>`       | Point compass to coordinates      | `enhancedcompass.use` |
-| `/compass set <name>`        | Save current location             | `enhancedcompass.use` |
-| `/compass set global <name>` | Save global location              | `enhancedcompass.use` |
-| `/compass reset`             | Reset compass to world spawn      | `enhancedcompass.use` |
-
-## 📖 Usage Examples
-
-### Basic Navigation
-
-````
-
-/compass Steve # Point to player Steve
-/compass home # Point to saved location "home"
-/compass 100 64 200 # Point to coordinates (100, 64, 200)
-/compass reset # Reset to world spawn
+### Basic Usage
 
 ```
-
-### Saving Locations
-
+/compass Steve           # Point to player Steve
+/compass home           # Point to saved location "home"
+/compass 100 64 200     # Point to coordinates
+/compass set home       # Save current location
+/compass reset          # Reset to world spawn
 ```
 
-/compass set home # Save current location as "home"
-/compass set shop # Save current location as "shop"
-/compass set global spawn # Save global location "spawn"
+## 📊 Server Compatibility
 
-````
+| Server Type | Version Support |
+| ----------- | --------------- |
+| **Bukkit**  | ✅ 1.8 - 1.21+  |
+| **Spigot**  | ✅ 1.8 - 1.21+  |
+| **Paper**   | ✅ 1.8 - 1.21+  |
 
-### Important Notes
+## 📚 Documentation
 
-- 🧭 You must be holding a compass to use any command
-- 🌍 Target must be in the same world as you
-- 📝 Location names are case-insensitive
-- 💾 Personal locations are saved per player
+For detailed configuration, commands, permissions, and advanced features, visit our [complete documentation](DOCUMENTATION.md).
 
-## ⚙️ Configuration
+### Quick Links
 
-The `config.yml` file allows you to customize all messages:
-
-```yaml
-messages:
-  no_compass: "&cYou need to be holding a compass to use this command."
-  player_not_found: "&cPlayer not found or offline."
-  target_not_in_same_world: "&cThe target is not in the same world as you."
-  location_saved: "&aLocation successfully saved as '&e{name}&a'."
-  global_location_saved: "&aGlobal location saved as '&e{name}&a'."
-  location_not_found: "&cLocation '&e{name}&c' not found."
-  compass_point_set: "&aYour compass now points to '&e{target}&a'."
-  compass_reset: "&aYour compass has been reset to the world spawn."
-  usage: "&eUsage: /compass <player|location|coordinates>\n       /compass set <name>\n       /compass set global <name>\n       /compass reset"
-````
-
-### Color Codes
-
-Use `&` followed by a color code:
-
-- `&a` = Green
-- `&c` = Red
-- `&e` = Yellow
-- `&b` = Aqua
-- And more...
-
-## 🗂️ File Structure
-
-```
-plugins/EnhancedCompass/
-├── config.yml                 # Main configuration
-├── global-locations.yml       # Global waypoints
-└── player-locations/          # Player-specific locations
-    ├── uuid1.yml
-    ├── uuid2.yml
-    └── ...
-```
-
-## 🔒 Permissions
-
-| Permission              | Description                      | Default |
-| ----------------------- | -------------------------------- | ------- |
-| `enhancedcompass.use`   | Use all compass commands         | `true`  |
-| `enhancedcompass.admin` | Reload config and language files | `op`    |
+- [Commands & Permissions](DOCUMENTATION.md#commands)
+- [Configuration Guide](DOCUMENTATION.md#configuration)
+- [Group System Setup](DOCUMENTATION.md#group-system)
+- [Troubleshooting](DOCUMENTATION.md#troubleshooting)
 
 ## 🛠️ Development
 
 ### Building from Source
 
 ```bash
-git clone https://github.com/yourusername/EnhancedCompass.git
+git clone https://github.com/fuzalabs/EnhancedCompass.git
 cd EnhancedCompass
 ./gradlew build
 ```
 
-The compiled JAR will be in `build/libs/`.
-
-### Project Structure
-
-```
-src/
-├── main/
-│   ├── java/
-│   │   └── br/com/fuzalabs/enhancedcompass/
-│   │       ├── EnhancedCompass.java
-│   │       ├── commands/
-│   │       │   ├── CompassCommand.java
-│   │       │   └── CompassTabCompleter.java
-│   │       └── storage/
-│   │           └── LocationStorage.java
-│   └── resources/
-│       ├── config.yml
-│       └── plugin.yml
-```
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-**Compass not working?**
-
-- Make sure you're holding a compass in your main hand
-- Check that you have the `enhancedcompass.use` permission
-
-**Location not found?**
-
-- Verify the location name is spelled correctly
-- Check if it's a personal or global location
-
-**Player not found?**
-
-- Ensure the player is online
-- Make sure you're in the same world
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+The compiled JAR will be available in `build/libs/`.
 
 ## 🤝 Contributing
 
+We welcome contributions! Please read our [Contributing Guidelines](CONTRIBUTING.md) before submitting a PR.
+
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
 
 ## 📞 Support
 
-- 🐛 **Issues**: [GitHub Issues](https://github.com/yourusername/EnhancedCompass/issues)
-- 💬 **Discord**: Join our server for help
-- 📧 **Email**: support@fuzalabs.com
+- 🐛 **Issues**: [GitHub Issues](https://github.com/fuzalabs/EnhancedCompass/issues)
+- 📧 **Email**: contato@fuzalabs.com
 
-## 🙏 Acknowledgments
+## � License
 
-- Built with ❤️ for the Minecraft community
-- Powered by the Bukkit API
-- Created by **FuzaLabs**
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
 <p align="center">
-  <strong>Made with 🧭 by <a href="https://fuzalabs.com">FuzaLabs</a></strong>
-</p>rincipal é direcionar a bussola do jogador para um local especifico, salvo previamente ou para um jogador.
-
-- Suporte da 1.8 a 1.21
-- Mensagem de erro caso o alvo não esteja no mesmo mapa que o player
-- Jogador precisa ter uma bussola na mão para usar o comando
-- Comando configurável (default: /bussola <jogador|local|coordenadas>)
-- Comando /bussola set <name> -> salva um local na base do jogador
-- Comando /bussola set global <name> -> salva um local na base global, disponível para todos os jogadores
-- Todas as mensagens configuráveis no .yml
-- Main: br.com.fuzalabs.enhancedcompass.EnhancedCompass
+  <strong>Made with 🧭 by <a href="https://fuzalabs.com.br">FuzaLabs</a></strong><br>
+  <em>Enhancing Minecraft navigation, one compass at a time.</em>
+</p>
