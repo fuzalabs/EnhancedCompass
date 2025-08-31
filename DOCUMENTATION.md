@@ -517,8 +517,7 @@ Need help? Here's how to get support:
 1. **Check this documentation** - Most questions are answered here
 2. **Search existing issues** - Your problem might already be reported
 3. **Create a new issue** - Use our GitHub issue templates
-4. **Join our Discord** - Get help from the community
-5. **Contact support** - Email us for urgent issues
+4. **Contact support** - Email us for urgent issues
 
 ### Reporting Bugs
 

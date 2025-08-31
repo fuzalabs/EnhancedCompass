@@ -79,7 +79,6 @@ cd EnhancedCompass
 Feel free to ask questions by:
 
 - Opening a GitHub Issue
-- Joining our Discord server
 - Emailing us at support@fuzalabs.com
 
 Thank you for contributing! 🚀
